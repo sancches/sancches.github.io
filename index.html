@@ -1,174 +1,393 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eduardo Sanches | Portfólio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script> 
-    <script>
-    const lenis = new Lenis();
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio - Eduardo Sanches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="cursor-glow"></div>
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#home" class="logo">EDUARDO<span class="dot">.</span></a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Início</a></li>
-                <li><a href="#about" class="nav-link">Sobre</a></li>
-                <li><a href="#skills" class="nav-link">Habilidades</a></li>
-                <li><a href="#projects" class="nav-link">Projetos</a></li>
-                <li><a href="#contact" class="nav-link contact-btn">Contato</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <section id="home" class="hero">
-    <div class="container hero-content">
-        <h1 class="hidden">CRIANDO <br><span class="highlight">EXPERIÊNCIAS</span> DIGITAIS</h1>
-        <p id="slogan-text" class="typewriter"></p> 
-        
-        <div class="hero-btns hidden delay-2">
-            <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-            <a href="#contact" class="btn btn-outline">Contato</a>
-        </div>
+  <!-- Fixed page bg -->
+  <div class="page-bg"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+        <svg viewBox="0 0 1302.08 1302.08" class="nav-logo-mark">
+          <path fill="currentColor" d="M676.34 160.33l0 307.82 157.58 157.58 150.24 0 157.58 -157.58 0 -307.82 -114.44 0 0 350.96 -148.77 0 0 -350.96 -202.2 0zm-30.51 1022.33l0 -175.46 175.46 175.46 350.96 0 0 -526.42 -175.46 0 175.46 -175.46 0 -350.96 -175.45 0 0 350.96 -87.76 0 0 -350.96 -263.21 0 0 175.46 -175.46 -175.46 -350.96 0 0 526.42 175.46 0 -175.46 175.46 0 350.96 175.45 0 0 -350.96 87.75 0 0 350.96 263.21 0zm0 -350.96l-175.46 -175.46 175.46 -175.46 175.46 175.46 -175.46 175.46zm263.21 87.75l-87.75 0 0 -87.75 87.75 0 0 87.75zm-526.43 -526.42l87.76 0 0 87.76 -87.76 0 0 -87.76z"/>
+        </svg>
+      Eduardo
+    </a>
+    <div class="nav-links">
+      <a href="#sobre" class="nav-link">Sobre</a>
+      <a href="#skills" class="nav-link">Habilidades</a>
+      <a href="#projetos" class="nav-link">Projetos</a>
     </div>
-        <div class="scroll-down">
-            <span>Scroll</span>
-            <i class="fas fa-arrow-down"></i>
-        </div>
-    </section>
+    <div class="nav-actions">
+      <a href="#footer" class="nav-cta">
+        Contato
+      </a>
+    </div>
+  </nav>
 
-    <section id="about" class="section">
-        <div class="container">
-            <div class="section-header hidden">
-                <h2>SOBRE MIM</h2>
-            </div>
-            <div class="about-grid">
-                <div class="about-text hidden">
-                    <p>Olá! Meu nome é Eduardo Sanches Souza. Sou de Nova Era - MG e, desde cedo, fui atraído pelo universo dos computadores, com um interesse particular em jogos e seus processos de criação.</p>
-                    <p>Em 2025, conclui o Curso Técnico em Informática. Durante esse período, aprimorei minhas habilidades em design e gestão de dados.</p>
-                    <p>Hoje estou matriculado no curso de Engenharia da Computação na Universidade Federal de Itajubá (UNIFEI), onde continuarei minha jornada de aprendizado. Com essa base de conhecimentos e minha vontade de aprender, estou preparado para novos desafios.</p>
-                    <a href="https://drive.google.com/file/d/1U4yV1pLuFGeHvUA3DiWwWKtJXZ-eIxMK/view?usp=sharing" target="_blank" class="btn btn-outline resume-btn">
-                        <i class="fas fa-file-download" style="margin-right: 8px;"></i> Ver Currículo
-                    </a>
-                </div>
-                <div class="about-visual hidden delay-1">
-                    <div class="visual-box"><img src="pictures/SobreImagem.png" alt="Eduardo Sanches" class="about-image"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ─── CIRCLE (fixed, always behind content) ─── -->
+  <div class="circle-wrap" id="circle">
+    <div class="circle-fill"></div>
+    <div class="circle-border" id="circleBorder"></div>
+    <div class="circle-glow"></div>
+  </div>
 
-    <section id="skills" class="section">
-        <div class="container">
-            <div class="section-header hidden">
-                <h2>HABILIDADES</h2>
-            </div>
-            <div class="skills-wrapper">
-                <div class="skill-category hidden">
-                    <h3>Design & Frontend</h3>
-                    <div class="skill-tags">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                        <span>Photoshop</span>
-                        <span>Illustrator</span>
-                        <span>CorelDraw</span>
-                        <span>Edição de Vídeo</span>
-                    </div>
-                </div>
-                <div class="skill-category hidden delay-1">
-                    <h3>Backend & Outros</h3>
-                    <div class="skill-tags">
-                        <span>Python</span>
-                        <span>C++</span>
-                        <span>Visual Basic</span>
-                        <span>Excel</span>
-                        <span>Access</span>
-                        <span>Marketing</span>
-                        <span>Administração</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ─── FOOTER CIRCLE (fixed, rises from below) ─── -->
+   
+  <div class="footer-circle" id="footerCircle">
+    <div class="footer-circle-fill"></div>
+    <div class="footer-circle-border" id="footerCircleBorder"></div>
+    <div class="footer-circle-glow"></div>
+  </div>
 
-    <section id="projects" class="section">
-        <div class="container">
-            <div class="section-header hidden">
-                <h2>PROJETOS</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card hidden">
-                    <div class="card-image" style="background-image: url('pictures/Galeria3.png');"></div>
-                    <div class="card-overlay">
-                        <h3>PROJETO CRIPTOAPP</h3>
-                        <p>Criptografia • Programação</p>
-                        <a href="project3.html" class="btn-small">Ver Detalhes <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="project-card hidden">
-                    <div class="card-image" style="background-image: url('pictures/Galeria1.png');"></div>
-                    <div class="card-overlay">
-                        <h3>Promo - ONG Na Mochila</h3>
-                        <p>Edição de Vídeo • Marketing</p>
-                        <a href="project1.html" class="btn-small">Ver Detalhes <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="project-card hidden delay-1">
-                    <div class="card-image" style="background-image: url('pictures/Galeria2.png');"></div>
-                    <div class="card-overlay">
-                        <h3>Identidade Visual & Fluxo</h3>
-                        <p>Design • Automação</p>
-                        <a href="project2.html" class="btn-small">Ver Detalhes <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ─── MAIN (normal flow) ─── -->
+  <main>
 
-    <section id="contact" class="section contact-section-wrapper">
-        <div class="container">
-            <div class="contact-card hidden">
-                <h2>VAMOS TRABALHAR JUNTOS?</h2>
-                <p class="contact-sub">Transforme suas ideias em realidade digital.</p>
-                
-                <a href="mailto:esanches.contato@gmail.com" class="email-link">esanches.contato@gmail.com</a>
-                <a href="tel:+5531972335287" class="phone-link">+55 31 97233-5287</a>
-                
-                <div class="social-links-centered">
-                    <a href="https://www.linkedin.com/in/sancheseduardo/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Sancches" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
+    <!-- First screen: hero content -->
+    <div class="hero-content">
+
+      <div class="eyebrow anim" id="a0">
+        <span class="eyebrow-line"></span>
+        <span>Desenvolvedor</span>
+        <span class="eyebrow-sep">|</span>
+        <span>sua ideia transformada em realidade</span>
+        <span class="eyebrow-line"></span>
+      </div>
+
+      <h1 class="hero-title anim" id="a1">
+        Criando <em>ferramentas essenciais</em>
+      </h1>
+
+      <p class="hero-sub anim" id="a2">
+        Soluções tecnológicas que impulsionam negócios.
+      </p>
+
+      <div class="widget anim" id="widget" data-a="a3">
+        <div class="widget-body">
+          <textarea class="widget-textarea" id="widgetTextarea" placeholder="Olá Eduardo, tenho uma ideia para..." rows="3"></textarea>
+        </div>
+        <div class="widget-footer">
+          <span class="widget-footer-label">
+            <i class="fa-regular fa-envelope" style="opacity:0.4;font-size:13px;"></i>
+            esanches.contato@gmail.com
+          </span>
+          <button class="widget-capture" id="captureBtn">Enviar</button>
+        </div>
+      </div>
+
+      <p class="demo-hint anim" id="a4">
+        <strong>Envie uma mensagem</strong> – Me conte o que você precisa e
+        me deixe fazer o resto
+      </p>
+
+    </div><!-- /hero-content -->
+
+    <div class="hero-transition"></div>
+
+    <!-- Below-fold sections -->
+    <!-- About card section -->
+    <div class="below-section" id="sobre">
+      <div class="about-wrap">
+        <img class="about-bg" src="assets/container-effect.png" alt="" aria-hidden="true" />
+
+        <div class="about-card">
+
+          <!-- Left: photo -->
+          <div class="about-image">
+            <img src="assets/profile.jpg" alt="Eduardo Sanches" />
+          </div>
+
+          <!-- Right: text content -->
+          <div class="about-content">
+            <h2 class="about-heading">Sobre mim</h2>
+            <p class="about-body">Olá! Meu nome é Eduardo Sanches Souza. Sou de Nova Era - MG e, desde cedo, fui atraído pelo universo dos computadores, com um interesse particular em jogos e seus processos de criação.</p>
+            <p class="about-body">Em 2025, conclui o Curso Técnico em Informática. Durante esse período, aprimorei minhas habilidades em design e gestão de dados.</p>
+            <p class="about-body">Hoje estou matriculado no curso de Ciências da Computação na Universidade Federal de Ouro Preto (UFOP), onde continuo minha jornada de aprendizado. Com essa base de conhecimentos e minha vontade de aprender, estou preparado para novos desafios.</p>
+            <div class="about-footer">
+              <a href="assets/curriculo.pdf" target="_blank" class="btn-curriculo">
+                Ver Currículo
+                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+              </a>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Eduardo Sanches. Todos os direitos reservados.</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  <div class="below-section" id="skills">
+    <div class="skill-wrap">
+      <img class="skill-bg" src="assets/section-bottom-effect.png" alt="" aria-hidden="true" />
+    </div>
+    <div class="skills-content" id="skills">
+      <div class="below-eyebrow">FULLSTACK & DESIGN</div>
+      <div class="below-title">Do conceito ao código funcional.</div>
+      <div class="below-sub">Sistemas robustos, interfaces que encantam.</div>
 
-    <script src="script.js"></script>
+      <!-- ─── SKILLS MARQUEE ─── -->
+      <div class="marquee-wrap">
+
+        <!-- Row 1 -->
+        <div class="marquee-row">
+          <div class="marquee-track row-1">
+            <div class="marquee-group">
+              <div class="skill-badge" data-badge><i class="fa-brands fa-aws"></i>Amazon Cloud</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-python"></i>Python</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-code"></i>C++</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-html5"></i>HTML</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-css3-alt"></i>CSS</div>
+            </div>
+            <div class="marquee-group" aria-hidden="true">
+              <div class="skill-badge" data-badge><i class="fa-brands fa-aws"></i>Amazon Cloud</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-python"></i>Python</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-code"></i>C++</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-html5"></i>HTML</div>
+              <div class="skill-badge" data-badge><i class="fa-brands fa-css3-alt"></i>CSS</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="marquee-row">
+          <div class="marquee-track row-2">
+            <div class="marquee-group">
+              <div class="skill-badge" data-badge><i class="fa-brands fa-js"></i>JavaScript</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-image"></i>Photoshop</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-bezier-curve"></i>Illustrator</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-pen-nib"></i>CorelDraw</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-file-lines"></i>Office</div>
+            </div>
+            <div class="marquee-group" aria-hidden="true">
+              <div class="skill-badge" data-badge><i class="fa-brands fa-js"></i>JavaScript</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-image"></i>Photoshop</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-bezier-curve"></i>Illustrator</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-pen-nib"></i>CorelDraw</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-file-lines"></i>Office</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="marquee-row">
+          <div class="marquee-track row-3">
+            <div class="marquee-group">
+              <div class="skill-badge" data-badge><i class="fa-solid fa-network-wired"></i>n8n</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-video"></i>Edição de Vídeo</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-bullhorn"></i>Marketing</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-briefcase"></i>Administração</div>
+            </div>
+            <div class="marquee-group" aria-hidden="true">
+              <div class="skill-badge" data-badge><i class="fa-solid fa-network-wired"></i>n8n</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-video"></i>Edição de Vídeo</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-bullhorn"></i>Marketing</div>
+              <div class="skill-badge" data-badge><i class="fa-solid fa-briefcase"></i>Administração</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /marquee-wrap -->
+
+    </div>
+  </div>
+  <!-- ─── PROJECTS SECTION ─── -->
+  <section class="projects-scene" id="projetos">
+    <canvas class="projects-stars" aria-hidden="true"></canvas>
+    <div class="projects-pin">
+
+    <div class="projects-header">
+      <div class="below-eyebrow">PROJETOS</div>
+      <div class="below-title">Do problema à solução.</div>
+      <div class="below-sub">Trabalhos reais, resultados reais.</div>
+    </div>
+
+    <div class="projects-stack">
+
+      <div class="project-card" data-card="0">
+        <div class="project-card-inner">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-number">01</span>
+              <span class="project-category">Automação</span>
+            </div>
+            <h3 class="project-title">WhatsApp Bot<br>Hospitalar</h3>
+            <p class="project-desc">Deploy de stack completo em servidor local para um sistema de automação de atendimento de triagem, via n8n e WhatsApp Business API.</p>
+            <div class="project-tags">
+              <span class="project-tag">Docker</span>
+              <span class="project-tag">n8n</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">WhatsApp API</span>
+              <span class="project-tag">Cloudflare</span>
+            </div>
+            <!-- <button class="project-link-btn" aria-label="Ver projeto">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </button> -->
+          </div>
+          <div class="project-image">
+            <img src="assets/Hospital.png" alt="WhatsApp Bot Hospitalar" />
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-card="1">
+        <div class="project-card-inner">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-number">02</span>
+              <span class="project-category">Cybersegurança</span>
+            </div>
+            <h3 class="project-title">Projeto<br>Cripto App</h3>
+            <p class="project-desc">Aplicativo de demonstração de modelos de criptografia em Python. Utiliza a biblioteca cryptography para implementar algoritmos de criptografia simétrica e assimétrica.</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Tkinter</span>
+              <span class="project-tag">Criptografia</span>
+            </div>
+            <!-- <button class="project-link-btn" aria-label="Ver projeto">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </button> -->
+          </div>
+          <div class="project-image">
+            <img src="assets/CriptoApp.png" alt="App CriptoApp" />
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-card="2">
+        <div class="project-card-inner">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-number">03</span>
+              <span class="project-category">Desenvolvimento</span>
+            </div>
+            <h3 class="project-title">Aplicativo CLI<br>pdf2md</h3>
+            <p class="project-desc">Aplicativo de linha de comando para conversão de arquivos PDF para Markdown. Utiliza a biblioteca PyMuPDF/PyMuPDF4LLM para extrair o conteúdo do PDF via reconhecimento óptico de caracteres(OCR) ou raw text e formata o resultado em Markdown.</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Inteligência Artificial</span>
+            </div>
+            <!-- <button class="project-link-btn" aria-label="Ver projeto"> 
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </button> -->
+          </div>
+          <div class="project-image">
+            <img src="assets/pdf2md.png" alt="Aplicativo CLI pdf2md" />
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-card="3">
+        <div class="project-card-inner">
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-number">04</span>
+              <span class="project-category">Marketing</span>
+            </div>
+            <h3 class="project-title">Videos Promocionais<br>ONG Na Mochila</h3>
+            <p class="project-desc">Desenvolvi vídeos promocionais estratégicos para a ONG Na Mochila, visando financiar a participação da equipe no campeonato de robótica FIRA 2025, na Coreia do Sul.
+A campanha resultou na arrecadação de R$ 10.000,00 e garantiu o apoio institucional da Prefeitura Municipal de Nova Era.
+O esforço de comunicação culminou no sucesso da equipe, que conquistou o Segundo Lugar Mundial no torneio.</p>
+            <div class="project-tags">
+              <span class="project-tag">Photoshop</span>
+              <span class="project-tag">Illustrator</span>
+              <span class="project-tag">After Effects</span>
+              <span class="project-tag">Canva</span>
+            </div>
+            <!-- <button class="project-link-btn" aria-label="Ver projeto">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </button> -->
+          </div>
+          <div class="project-image">
+            <img src="assets/NaMochila.png" alt="Videos Promocionais ONG Na Mochila" />
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /projects-stack -->
+    </div><!-- /projects-pin -->
+  </section>
+  </main>
+  <div class="projects-transition"></div>
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer-section" id="footer">
+
+    <div class="footer-cta">
+      <div class="footer-cta-text">
+        <div class="footer-cta-eyebrow">VAMOS COMEÇAR</div>
+        <div class="footer-cta-title">Pronto para tirar sua ideia do papel?<br><em>Entre em contato!</em></div>
+      </div>
+      <div class="contact-card-scene">
+        <div class="contact-card-wrapper" id="contactCard">
+          <div class="contact-card-face contact-card-front">
+            <svg viewBox="0 0 1302.08 1302.08" class="contact-card-logo">
+              <path fill="currentColor" d="M676.34 160.33l0 307.82 157.58 157.58 150.24 0 157.58 -157.58 0 -307.82 -114.44 0 0 350.96 -148.77 0 0 -350.96 -202.2 0zm-30.51 1022.33l0 -175.46 175.46 175.46 350.96 0 0 -526.42 -175.46 0 175.46 -175.46 0 -350.96 -175.45 0 0 350.96 -87.76 0 0 -350.96 -263.21 0 0 175.46 -175.46 -175.46 -350.96 0 0 526.42 175.46 0 -175.46 175.46 0 350.96 175.45 0 0 -350.96 87.75 0 0 350.96 263.21 0zm0 -350.96l-175.46 -175.46 175.46 -175.46 175.46 175.46 -175.46 175.46zm263.21 87.75l-87.75 0 0 -87.75 87.75 0 0 87.75zm-526.43 -526.42l87.76 0 0 87.76 -87.76 0 0 -87.76z"/>
+            </svg>
+            <div class="contact-card-content contact-card-bottom">
+              <p class="contact-card-eyebrow">INFORMAÇÕES</p>
+              <p class="contact-card-text">Clique duplo para revelar...</p>
+            </div>
+          </div>
+          <div class="contact-card-face contact-card-back">
+            <div class="contact-card-content contact-card-top">
+              <p class="contact-card-text copyable">esanches.contato@gmail.com</p>
+              <p class="contact-card-eyebrow">E-MAIL</p>
+            </div>
+            <div class="contact-card-content contact-card-bottom">
+              <p class="contact-card-eyebrow">TELEFONE</p>
+              <p class="contact-card-text copyable">+55 (31) 97233-5287</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="copy-chip" class="contact-copy-chip">Copiar</div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bar">
+      <a href="#" class="footer-logo">
+        <svg viewBox="0 0 1302.08 1302.08" class="nav-logo-mark">
+          <path fill="currentColor" d="M676.34 160.33l0 307.82 157.58 157.58 150.24 0 157.58 -157.58 0 -307.82 -114.44 0 0 350.96 -148.77 0 0 -350.96 -202.2 0zm-30.51 1022.33l0 -175.46 175.46 175.46 350.96 0 0 -526.42 -175.46 0 175.46 -175.46 0 -350.96 -175.45 0 0 350.96 -87.76 0 0 -350.96 -263.21 0 0 175.46 -175.46 -175.46 -350.96 0 0 526.42 175.46 0 -175.46 175.46 0 350.96 175.45 0 0 -350.96 87.75 0 0 350.96 263.21 0zm0 -350.96l-175.46 -175.46 175.46 -175.46 175.46 175.46 -175.46 175.46zm263.21 87.75l-87.75 0 0 -87.75 87.75 0 0 87.75zm-526.43 -526.42l87.76 0 0 87.76 -87.76 0 0 -87.76z"/>
+        </svg>
+        Eduardo
+      </a>
+      <div class="footer-social">
+        <a href="#" aria-label="X">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">©2026 Eduardo Sanches. Todos os direitos reservados.</span>
+      <div class="footer-links">
+        <a href="#">Privacidade</a>
+        <span>·</span>
+        <a href="#">Termos</a>
+      </div>
+    </div>
+
+    <div class="footer-end-glow"></div>
+
+  </footer>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint" id="scrollHint">
+    <div class="scroll-dot"></div>
+    <div class="scroll-arrow"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
