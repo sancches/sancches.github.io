@@ -84,13 +84,15 @@ function onScroll() {
     const FADE_START = VH * 0.55;   // opacity starts dropping here
     const FADE_END = VH * 1.10;   // fully gone by here
 
-    if (y <= MERGE_POINT) {
-        circle.style.transform =
-            `translateX(-50%) translateY(calc(-8% - ${y * PARALLAX}px))`;
-    } else {
-        const mergedOffset = MERGE_POINT * PARALLAX;
-        circle.style.transform =
-            `translateX(-50%) translateY(calc(-8% - ${mergedOffset}px))`;
+    if (window.innerWidth > 768) {
+        if (y <= MERGE_POINT) {
+            circle.style.transform =
+                `translateX(-50%) translateY(calc(-8% - ${y * PARALLAX}px))`;
+        } else {
+            const mergedOffset = MERGE_POINT * PARALLAX;
+            circle.style.transform =
+                `translateX(-50%) translateY(calc(-8% - ${mergedOffset}px))`;
+        }
     }
 
     // Fade hero circle out as user scrolls past the hero viewport
@@ -140,6 +142,10 @@ onScroll();
     const stack    = document.querySelector('.projects-stack');
 
     if (!scene || !cards.length) return;
+
+    // On mobile the stack is plain flow — skip the sticky JS entirely.
+    const isMobile = () => window.innerWidth <= 768;
+    if (isMobile()) return;
 
     const CARD_H          = 320;   // must match CSS height
     const LIP             = 26;    // px of previous card peeking above the active one
@@ -411,6 +417,23 @@ window.addEventListener('mousemove', e => {
         card.classList.add('is-animating');
         card.style.transform = `rotateX(0deg) rotateY(${isFlipped ? 180 : 0}deg)`;
         setTimeout(() => { card.classList.remove('is-animating'); isAnimating = false; }, 600);
+    });
+
+    // Mobile: single tap flips the card (no hover / dblclick on touch)
+    let lastTap = 0;
+    card.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        const DOUBLE_TAP_MS = 300;
+        if (now - lastTap < DOUBLE_TAP_MS) {
+            e.preventDefault();
+            if (isAnimating) return;
+            isFlipped   = !isFlipped;
+            isAnimating = true;
+            card.classList.add('is-animating');
+            card.style.transform = `rotateX(0deg) rotateY(${isFlipped ? 180 : 0}deg)`;
+            setTimeout(() => { card.classList.remove('is-animating'); isAnimating = false; }, 600);
+        }
+        lastTap = now;
     });
 
     // Copy chip
