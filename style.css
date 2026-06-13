@@ -27,7 +27,7 @@ body {
     color: var(--tp);
     min-height: 300vh; /* scroll room */
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
 }
 
@@ -823,7 +823,7 @@ main { position: relative; z-index: 3; }
     position: sticky;
     top: 0;
     height: 100vh;
-    overflow: hidden;
+    overflow: clip; /* clip visually without creating a scroll container (which would break sticky) */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -851,7 +851,7 @@ main { position: relative; z-index: 3; }
 }
 
 .projects-transition {
-    height: 25vh;
+    height: 28vh;
     position: relative;
     z-index: 2;
     background: linear-gradient(
@@ -1386,21 +1386,13 @@ main { position: relative; z-index: 3; }
 /* ─── Tablet (≤ 768px) ─── */
 @media (max-width: 768px) {
 
-  /* NAV — ensure it never clips off the right edge */
+  /* NAV — keep left:50% always so flat→pill has no origin snap */
   nav {
     padding: 14px 20px;
-    left: 0;
-    transform: translateY(-8px);
     width: 100vw;
   }
 
-  nav.visible {
-    transform: translateY(0);
-  }
-
   nav.scrolled {
-    left: 50%;
-    transform: translateX(-50%) translateY(0);
     width: calc(100vw - 32px);
     top: 10px;
     padding: 10px 14px;
@@ -1478,7 +1470,7 @@ main { position: relative; z-index: 3; }
     height: auto;
     overflow: visible;
     padding-top: 60px;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
   }
 
   .projects-stack {
@@ -1616,7 +1608,7 @@ main { position: relative; z-index: 3; }
 
   /* FOOTER */
   .footer-cta {
-    padding: 48px 16px 32px;
+    padding: 48px 16px;
   }
 
   .footer-cta-title {

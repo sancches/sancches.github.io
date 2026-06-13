@@ -135,36 +135,36 @@ onScroll();
 
 // ─── PROJECT STACK SCROLL ANIMATION ───
 (function () {
-    const scene    = document.querySelector('.projects-scene');
-    const pin      = document.querySelector('.projects-pin');
-    // Card 0 is fixed in place via CSS (translateY(0)) — excluded from scroll animation.
-    const cards    = Array.from(document.querySelectorAll('.project-card')).slice(1);
-    const stack    = document.querySelector('.projects-stack');
+    const scene  = document.querySelector('.projects-scene');
+    const pin    = document.querySelector('.projects-pin');
+    const header = document.querySelector('.projects-header');
+    // Card 0 rests at translateY(0) via CSS — only cards 1-N are driven by JS.
+    const cards  = Array.from(document.querySelectorAll('.project-card')).slice(1);
 
-    if (!scene || !cards.length) return;
+    if (!scene || !pin || !cards.length) return;
 
-    // On mobile the stack is plain flow — skip the sticky JS entirely.
-    const isMobile = () => window.innerWidth <= 768;
-    if (isMobile()) return;
+    const BREAKPOINT    = 768;
+    const LIP           = 26;   // px each card peeks above the next
+    const EASE_FRACTION = 0.52; // portion of a scroll slot used for the slide-in
 
-    const CARD_H          = 320;   // must match CSS height
-    const LIP             = 26;    // px of previous card peeking above the active one
-    const SCROLL_PER_CARD = window.innerHeight; // 1 full vh of scroll per card
-    // Extra scroll after all cards land before the section releases (breathing room before footer)
-    const TRAIL           = window.innerHeight * 0.8;
+    // ── DESKTOP ──────────────────────────────────────────────────────────────
+    // .projects-pin is position:sticky, top:0, height:100vh.
+    // .projects-scene needs an explicit height so there is scroll room.
+    // Cards slide up from below the stack area as the user scrolls each slot.
 
-    function setSceneHeight() {
-        const pinH = pin.offsetHeight; // 100vh
-        // 1 slot for card 0 (already covered by the pin itself) + 1 slot per subsequent card + trailer
-        const total = pinH + (cards.length - 1) * SCROLL_PER_CARD + TRAIL;
-        scene.style.height = total + 'px';
+    function desktopSetHeight() {
+        const SCROLL_PER_CARD = window.innerHeight;
+        const TRAIL           = window.innerHeight * 0.8;
+        const pinH            = pin.offsetHeight;
+        scene.style.height    = pinH + (cards.length - 1) * SCROLL_PER_CARD + TRAIL + 'px';
     }
 
-    function updateCards() {
+    function desktopUpdate() {
         const sceneTop   = scene.getBoundingClientRect().top;
         const scrolled   = Math.max(0, -sceneTop);
-        const headerH    = document.querySelector('.projects-header').offsetHeight + 40; // matches margin-bottom
+        const headerH    = (header ? header.offsetHeight : 0) + 40;
         const stackAreaH = pin.offsetHeight - headerH;
+        const SCROLL_PER_CARD = window.innerHeight;
 
         cards.forEach((card, i) => {
             const cardIndex = parseInt(card.dataset.card, 10);
@@ -172,13 +172,12 @@ onScroll();
             let ty;
 
             if (scrolled < slotStart) {
-                // Waiting below — parked off-screen
+                // Not yet — wait below the stack area.
                 ty = stackAreaH;
             } else {
-                // Resting position: stacked with LIP gap
                 const restY    = cardIndex * LIP;
-                const progress = Math.min(1, (scrolled - slotStart) / (SCROLL_PER_CARD * 0.52));
-                const ease     = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+                const progress = Math.min(1, (scrolled - slotStart) / (SCROLL_PER_CARD * EASE_FRACTION));
+                const ease     = 1 - Math.pow(1 - progress, 3);
                 ty = stackAreaH - (stackAreaH - restY) * ease;
             }
 
@@ -187,26 +186,63 @@ onScroll();
         });
     }
 
-    setSceneHeight();
-    updateCards();
+    function desktopInit() {
+        // Reset any mobile overrides.
+        scene.style.height = '';
+        cards.forEach(c => { c.style.cssText = ''; });
 
-    window.addEventListener('scroll', updateCards, { passive: true });
-    window.addEventListener('resize', () => { setSceneHeight(); updateCards(); });
+        // Set height synchronously — sticky needs scroll room before first paint.
+        desktopSetHeight();
+        desktopUpdate();
 
-    // Anchor jump teleports scroll without a scroll event — force re-render.
-    // Double rAF ensures layout is settled after the jump before we read getBoundingClientRect.
-    window.addEventListener('hashchange', () => requestAnimationFrame(() => requestAnimationFrame(updateCards)));
-    document.querySelectorAll('a[href="#projetos"]').forEach(a => {
-        a.addEventListener('click', () => requestAnimationFrame(() => requestAnimationFrame(updateCards)));
-    });
-
-    // Handle page load with #projetos already in the URL
-    if (window.location.hash === '#projetos') {
-        requestAnimationFrame(() => requestAnimationFrame(updateCards));
+        window.addEventListener('scroll', desktopUpdate, { passive: true });
+        window.addEventListener('resize', onDesktopResize);
     }
+
+    function onDesktopResize() {
+        requestAnimationFrame(() => { desktopSetHeight(); desktopUpdate(); });
+    }
+
+    function desktopDestroy() {
+        window.removeEventListener('scroll', desktopUpdate);
+        window.removeEventListener('resize', onDesktopResize);
+    }
+
+    // ── MOBILE ───────────────────────────────────────────────────────────────
+    // CSS media query already switches .projects-pin to position:relative and
+    // .project-card to position:relative / transform:none / height:auto.
+    // Nothing for JS to do except clear any desktop state.
+
+    function mobileInit() {
+        scene.style.height = '';
+        cards.forEach(c => { c.style.cssText = ''; });
+    }
+
+    // ── ORCHESTRATION ────────────────────────────────────────────────────────
+
+    let activeMode = null;
+
+    function run() {
+        const mode = window.innerWidth <= BREAKPOINT ? 'mobile' : 'desktop';
+        if (mode === activeMode) return;
+
+        // Tear down previous mode.
+        if (activeMode === 'desktop') desktopDestroy();
+
+        activeMode = mode;
+
+        if (mode === 'desktop') {
+            desktopInit();
+        } else {
+            mobileInit();
+        }
+    }
+
+    run();
+    window.addEventListener('resize', run);
 })();
 // ─── POINTER TRACKING ───
-window.addEventListener('mousemove', e => {
+function handlePointer(clientX, clientY) {
 
     // ── Hero circle border glow ──
     const cr = circle.getBoundingClientRect();
@@ -214,18 +250,18 @@ window.addEventListener('mousemove', e => {
     const ccy = cr.top + cr.height / 2;
     const cr_r = cr.width / 2;
 
-    const cdx = e.clientX - ccx;
-    const cdy = e.clientY - ccy;
+    const cdx = clientX - ccx;
+    const cdy = clientY - ccy;
     const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
 
     circleBorder.style.setProperty(
         '--cx',
-        ((e.clientX - cr.left) / cr.width * 100).toFixed(1) + '%'
+        ((clientX - cr.left) / cr.width * 100).toFixed(1) + '%'
     );
 
     circleBorder.style.setProperty(
         '--cy',
-        ((e.clientY - cr.top) / cr.height * 100).toFixed(1) + '%'
+        ((clientY - cr.top) / cr.height * 100).toFixed(1) + '%'
     );
 
     circleBorder.classList.toggle(
@@ -239,18 +275,18 @@ window.addEventListener('mousemove', e => {
     const fcy = fr.top + fr.height / 2;
     const fr_r = fr.width / 2;
 
-    const fdx = e.clientX - fcx;
-    const fdy = e.clientY - fcy;
+    const fdx = clientX - fcx;
+    const fdy = clientY - fcy;
     const fdist = Math.sqrt(fdx * fdx + fdy * fdy);
 
     footerCircleBorder.style.setProperty(
         '--fcx',
-        ((e.clientX - fr.left) / fr.width * 100).toFixed(1) + '%'
+        ((clientX - fr.left) / fr.width * 100).toFixed(1) + '%'
     );
 
     footerCircleBorder.style.setProperty(
         '--fcy',
-        ((e.clientY - fr.top) / fr.height * 100).toFixed(1) + '%'
+        ((clientY - fr.top) / fr.height * 100).toFixed(1) + '%'
     );
 
     footerCircleBorder.classList.toggle(
@@ -261,8 +297,8 @@ window.addEventListener('mousemove', e => {
     // ── Widget glow ──
     const wr = widget.getBoundingClientRect();
 
-    widget.style.setProperty('--mouse-x', ((e.clientX - wr.left) / wr.width * 100).toFixed(1) + '%');
-    widget.style.setProperty('--mouse-y', ((e.clientY - wr.top)  / wr.height * 100).toFixed(1) + '%');
+    widget.style.setProperty('--mouse-x', ((clientX - wr.left) / wr.width * 100).toFixed(1) + '%');
+    widget.style.setProperty('--mouse-y', ((clientY - wr.top)  / wr.height * 100).toFixed(1) + '%');
 
     // ── About card — no pointer tracking (glossy, static) ──
 
@@ -270,8 +306,8 @@ window.addEventListener('mousemove', e => {
     const currBtn = document.querySelector('.btn-curriculo');
     if (currBtn) {
         const cr2 = currBtn.getBoundingClientRect();
-        currBtn.style.setProperty('--mouse-x', ((e.clientX - cr2.left) / cr2.width  * 100).toFixed(1) + '%');
-        currBtn.style.setProperty('--mouse-y', ((e.clientY - cr2.top)  / cr2.height * 100).toFixed(1) + '%');
+        currBtn.style.setProperty('--mouse-x', ((clientX - cr2.left) / cr2.width  * 100).toFixed(1) + '%');
+        currBtn.style.setProperty('--mouse-y', ((clientY - cr2.top)  / cr2.height * 100).toFixed(1) + '%');
     }
 
     // ── Capture button glow ──
@@ -279,28 +315,34 @@ window.addEventListener('mousemove', e => {
 
     captureBtn.style.setProperty(
         '--bx',
-        ((e.clientX - br.left) / br.width * 100).toFixed(1) + '%'
+        ((clientX - br.left) / br.width * 100).toFixed(1) + '%'
     );
 
     captureBtn.style.setProperty(
         '--by',
-        ((e.clientY - br.top) / br.height * 100).toFixed(1) + '%'
+        ((clientY - br.top) / br.height * 100).toFixed(1) + '%'
     );
 
     // ── Skill badges glow ──
     document.querySelectorAll('.skill-badge').forEach(badge => {
         const r = badge.getBoundingClientRect();
-        badge.style.setProperty('--bx', ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%');
-        badge.style.setProperty('--by', ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%');
+        badge.style.setProperty('--bx', ((clientX - r.left) / r.width  * 100).toFixed(1) + '%');
+        badge.style.setProperty('--by', ((clientY - r.top)  / r.height * 100).toFixed(1) + '%');
     });
 
     // ── Project card glow (border + spotlight) ──
     document.querySelectorAll('.project-card-inner').forEach(card => {
         const r = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%');
-        card.style.setProperty('--mouse-y', ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%');
+        card.style.setProperty('--mouse-x', ((clientX - r.left) / r.width  * 100).toFixed(1) + '%');
+        card.style.setProperty('--mouse-y', ((clientY - r.top)  / r.height * 100).toFixed(1) + '%');
     });
-});
+}
+
+window.addEventListener('mousemove', e => handlePointer(e.clientX, e.clientY));
+window.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    if (t) handlePointer(t.clientX, t.clientY);
+}, { passive: true });
 // ─── PROJECTS STAR FIELD ───
 (function () {
     const canvas = document.querySelector('.projects-stars');
@@ -318,8 +360,8 @@ window.addEventListener('mousemove', e => {
 
     function resize() {
         const scene = canvas.parentElement;
-        W = scene.offsetWidth;
-        H = scene.offsetHeight;
+        W = scene.offsetWidth  || window.innerWidth;
+        H = scene.scrollHeight || scene.offsetHeight || window.innerHeight;
         canvas.width  = W;
         canvas.height = H;
         spawn();
@@ -357,9 +399,12 @@ window.addEventListener('mousemove', e => {
         requestAnimationFrame(draw);
     }
 
-    resize();
+    // Defer so scene.style.height is already set by the projects IIFE
+    requestAnimationFrame(() => {
+        resize();
+        requestAnimationFrame(draw);
+    });
     window.addEventListener('resize', resize);
-    requestAnimationFrame(draw);
 })();
 // ─── CONTACT FLIP CARD ───
 (function () {
